@@ -1,0 +1,28 @@
+{% block content %}
+<h1>Grades of Students</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Firstname</th>
+      <th>Assignment 1</th>
+      <th>Assignment 2</th>
+      <th>Assignment 3</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for grade in s_grades %}
+    <tr>
+      <td>{{ grade.student }}</td>
+      <td>{{ grade.assignment_1 }}</td>
+      <td>{{ grade.assignment_2 }}</td>
+      <td>{{ grade.assignment_3 }}</td>
+
+      <td>
+        <a href="{% url 'update_grades' grade.id %}">Edit</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

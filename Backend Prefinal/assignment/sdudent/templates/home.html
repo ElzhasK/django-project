@@ -1,0 +1,247 @@
+<head>
+  <style>
+    body {
+      display: flex;
+      margin: 0;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    h1 {
+      font-size: 50px;
+      font-weight: 600;
+      background-image: linear-gradient(to left, #5271ff, #8c52ff);
+      color: transparent;
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+
+    table {
+      width: 100%;
+      border: 1px solid #grey;
+      margin-bottom: 20px;
+    }
+
+    th {
+      font-weight: bold;
+      text-align: left;
+      border: none;
+      padding: 10px 15px;
+      background: #d8d8d8;
+      font-size: 14px;
+      border-left: 1px solid #ddd;
+      border-right: 1px solid #ddd;
+      border: none;
+    }
+
+    td {
+      text-align: left;
+      border-left: 1px solid #ddd;
+      border-right: 1px solid #ddd;
+      padding: 15px 15px;
+      font-size: 14px;
+      vertical-align: top;
+      border: none;
+    }
+
+    .create {
+      cursor: pointer;
+      text-decoration: none;
+      color: #fff;
+      background-color: #4caf50;
+      max-width: 110px;
+      border-radius: 20px;
+      padding: 10px 18px;
+      font-size: 18px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .create:hover {
+      background-color: #00a651;
+      transition: 0.5s;
+    }
+
+    .update {
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: none;
+      padding: 10px 15px;
+      background-color: #5271ff;
+      border-radius: 12px;
+      margin: 0 5px 0 5px;
+    }
+    .update:hover {
+      background-color: #365aff;
+      transition: 0.5s;
+    }
+    .delete {
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: none;
+      padding: 10px 15px;
+      background-color: #ff3333;
+      border-radius: 12px;
+      margin: 0 5px 0 5px;
+    }
+    .delete:hover {
+      background-color: #ff0d00;
+      transition: 0.5s;
+    }
+
+    nav {
+      background-color: #011429;
+      display: flex;
+      width: 100%;
+      flex-direction: row;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    nav a {
+      font-size: 22px;
+      color: #fff;
+      margin: 20px 30px;
+      text-decoration: none;
+      position: relative;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
+    }
+
+    nav a::after {
+      content: "";
+      display: block;
+      height: 2px;
+      width: 0;
+      background-color: #1fb6ff;
+      transition: width 0.3s ease-in-out;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+      float: right;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      border-radius: 4px;
+      background-color: #002045;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      color: #fff;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #002d65;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .welcome-div {
+      display: flex;
+      direction: row;
+      align-items: center;
+      float: right;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h4 {
+      font-size: 20px;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
+    }
+  </style>
+</head>
+<nav>
+  <a style="margin-left: 100px" href="{% url 'sdudent'%}">Welcome page</a>
+  <a href="{% url 'index'%}">Search page</a>
+  <a href="{% url 'all_members'%}">Students and Instructors</a>
+  <a href="{% url 'home'%}">CRUD page</a>
+
+  <div class="welcome-div">
+    {% if user.is_authenticated %}
+    <h4>Welcome, {{ user.username }}!</h4>
+    {% endif %}
+    <div class="dropdown">
+      <a href="{% url 'register'%}">Account</a>
+      <div class="dropdown-content">
+        <a href="{% url 'login'%}">Log in</a>
+        <a href="{% url 'register'%}">Register</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'profile' %}">Profile</a>
+        {% endif %} {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}">Logout</a>
+        {% endif %}
+      </div>
+    </div>
+    <img
+      src="{{ user.profile.image.url }}"
+      width="50"
+      style="border-radius: 50%"
+    />
+  </div>
+</nav>
+
+{% block content %}
+<h1>Students</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Student ID</th>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Faculty</th>
+      <th>GPA</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for student in students %}
+    <tr>
+      <td>{{ student.student_id }}</td>
+      <td>{{ student.firstname }}</td>
+      <td>{{ student.lastname }}</td>
+      <td>{{ student.faculty }}</td>
+      <td>{{ student.student_gpa }}</td>
+      <td class="td">
+        {% if perms.sdudent.change_student %}
+        <a class="update" href="{% url 'update' student.id %}">Edit</a>
+        {%endif%} {% if perms.sdudent.delete_student %}
+        <a class="delete" href="{% url 'delete' student.id %}">Delete</a>
+        {%endif%}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% if perms.sdudent.add_student %}
+<a class="create" href="{% url 'create' %}">Create Student</a>
+{% endif %} {% endblock %}

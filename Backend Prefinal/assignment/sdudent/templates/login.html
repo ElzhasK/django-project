@@ -1,0 +1,202 @@
+{% block content %}
+<style>
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    background: linear-gradient(90deg, #aea4e3, #d3ffe8);
+  }
+
+  main {
+    display: flex;
+    line-height: 30px;
+    flex-direction: column;
+    position: relative;
+    padding: 0 20px 20px 20px;
+    width: 300px;
+    height: 550px;
+    margin-bottom: 40px;
+    border-radius: 10px;
+    background: linear-gradient(
+      0deg,
+      rgba(107, 151, 222, 0.85) 20%,
+      rgba(106, 112, 228, 0.65) 50%
+    );
+
+    font-size: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 21px -12px rgba(0, 0, 0, 0.66);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  form input {
+    margin: 20px 0;
+    text-align: center;
+    background-color: #ecf0f1;
+    border: none;
+    border-radius: 3px;
+    font-size: 18px;
+    font-weight: 200;
+    padding: 10px 0;
+    width: 250px;
+    transition: border 0.5s;
+  }
+
+  p {
+    font-size: 20px;
+    font-family: "Poppins", sans-serif;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+  }
+
+  h2 {
+    font-family: "Poppins", sans-serif;
+    font-size: 38px;
+    font-weight: 600;
+    line-height: 42px;
+  }
+
+  button {
+    width: 30%;
+    border: none;
+    background-color: #fff;
+    color: #080710;
+    padding: 10px 10px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #ebebeb;
+  }
+
+  a {
+    font-size: 16px;
+    color: #444;
+    display: block;
+    margin-top: 12px;
+  }
+
+  nav {
+    background-color: #011429;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 40px;
+  }
+
+  nav a {
+    font-size: 22px;
+    color: #fff;
+    margin: 20px 30px;
+    text-decoration: none;
+    position: relative;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+      "Helvetica Neue", sans-serif;
+  }
+
+  nav a::after {
+    content: "";
+    display: block;
+    height: 2px;
+    width: 0;
+    background-color: #1fb6ff;
+    transition: width 0.3s ease-in-out;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+
+  nav a:hover::after {
+    width: 100%;
+  }
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    float: right;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    border-radius: 4px;
+    background-color: #002045;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    color: #fff;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #002d65;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .welcome-div {
+    display: flex;
+    direction: row;
+    align-items: center;
+    float: right;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  h4 {
+    font-size: 20px;
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+      "Helvetica Neue", sans-serif;
+  }
+</style>
+
+<body>
+  <nav>
+    <a style="margin-left: 100px" href="{% url 'sdudent'%}">Welcome page</a>
+    <a href="{% url 'index'%}">Search page</a>
+    <a href="{% url 'all_members'%}">Students and Instructors</a>
+    <a href="{% url 'home'%}">CRUD page</a>
+
+    <div class="dropdown">
+      <a href="{% url 'register'%}">Account</a>
+      <div class="dropdown-content">
+        <a href="{% url 'login'%}">Log in</a>
+        <a href="{% url 'register'%}">Register</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'profile' %}">Profile</a>
+        {% endif %} {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}">Logout</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+  <main>
+    <h2>Login</h2>
+    <form method="POST">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit">Login</button>
+      <a href="#">Lost your password ?</a>
+    </form>
+  </main>
+</body>
+{% endblock %}

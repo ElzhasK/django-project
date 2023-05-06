@@ -1,0 +1,61 @@
+<head>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+      justify-content: center;
+    }
+    main {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      padding: 0 20px 20px 20px;
+      width: 600px;
+      height: auto;
+      margin-bottom: 40px;
+      border-radius: 10px;
+      background-color: #fff;
+      border: 2px solid #ddd;
+      font-size: 18px;
+      overflow: hidden;
+      box-shadow: 0 4px 21px -12px rgba(0, 0, 0, 0.66);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    h1 {
+      font-size: 40px;
+      font-weight: 600;
+      color: #056367;
+    }
+    button {
+      border: none;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: none;
+      padding: 10px 15px;
+      background-color: #5271ff;
+      border-radius: 12px;
+      margin: 0 5px 0 5px;
+    }
+    input {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      padding: 8px;
+      width: 200px;
+    }
+  </style>
+</head>
+
+{% block content %}
+<main>
+  <h1>Edit Student</h1>
+  <form method="post">
+    {% csrf_token %} {{ form.as_p }}
+    <button type="submit">Update</button>
+  </form>
+</main>
+{% endblock %}

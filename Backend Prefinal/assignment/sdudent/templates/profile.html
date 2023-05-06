@@ -1,0 +1,120 @@
+{% load crispy_forms_tags %} {% block content %}
+<style>
+    body {
+        padding: 0px;
+        top: auto;
+        bottom: auto;
+        display: flex;
+        position: relative;
+        background: #f1dcc9;
+        align-items: center;
+        flex-direction: column;
+        font-family: 'Open Sans', sans-serif;
+        background-size: cover;
+    }
+
+    .profile-container {
+        background: #FDFEFF;
+        width: 550px;
+        height: 700px;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    img {
+        border-radius: 50%;
+        width: 200px;
+        align-items: center;
+    }
+
+    h1 {
+        color: #2D354A;
+        font-size: 26px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    h2 {
+        color: #2D354A;
+        font-size: 30px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    p {
+        color: #7C8097;
+        font-size: .75em;
+        font-weight: 300;
+        padding-top: .4em;
+        padding-bottom: .7em;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    form {
+        max-width: 450px;
+        background: #FAFAFA;
+        padding: 10px;
+        margin: 10px auto;
+        box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.35);
+        border-radius: 10px;
+        border: 3px solid brown;
+    }
+
+    .exit {
+        color: #fff;
+        outline: none;
+        border: none;
+        text-align: center;
+        cursor: pointer;
+        font-weight: 300;
+        text-decoration: none;
+        padding: 15 25;
+        margin: 20px 0 20px 0; 
+        border-radius: 8px;
+        background: #001C84;
+    }
+
+    button {
+        color: #fff;
+        width: 130px;
+        height: 42px;
+        outline: none;
+        border: none;
+        display: block;
+        cursor: pointer;
+        font-weight: 300;
+        margin: 20px 0 20px 0; 
+        border-radius: 8px;
+        box-shadow: 0 13px 26px rgba(#000, .16), 0 3px 6px rgba(#000, .16);
+        background: #4CAF50;
+    }
+</style>
+<a class="exit" href="{% url 'home'%}">Exit</a>
+<div class="profile-container">
+    <main>
+    <h1>Profile</h1>
+    <div>
+        <img src="{{ user.profile.image.url }}" width="150" />
+        <h2>{{user.username}}</h2>
+        <p>Email: {{user.email}}</p>
+    </div class="profile-info">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset>{{ u_form|crispy }} {{ p_form|crispy }}</fieldset>
+        <div>
+        <button type="submit">Update</button>
+        </div>
+    </form>
+    </main>
+</div>
+{% endblock %}
